@@ -1,6 +1,6 @@
-import { Observable, map, of, toArray } from "rxjs";
-import { Mathematics } from "../core/math";
-import { Solver } from "../core/solver";
+import { Observable, map, of, toArray } from 'rxjs';
+import { Mathematics } from '../core/math';
+import { Solver } from '../core/solver';
 
 export class Day11 extends Solver {
   constructor() {
@@ -9,7 +9,7 @@ export class Day11 extends Solver {
 
   solveForPartOne(): Observable<string | number> {
     return this.lines$().pipe(
-      map((line: string) => line.split("")),
+      map((line: string) => line.split('')),
       toArray(),
       map(this.expandUniverse.bind(this)),
       map(this.findAllGalaxyLocations),
@@ -18,8 +18,37 @@ export class Day11 extends Solver {
   }
 
   solveForPartTwo(): Observable<string | number> {
-    return of(2);
+    return this.lines$().pipe(
+      map((line: string) => line.split('')),
+      toArray(),
+      map(this.findAllGalaxyLocationsPart2.bind(this)),
+      map(this.calculateSumOfShortestDistancesBetweenAllGalaxies)
+    );
   }
+
+  private findAllGalaxyLocationsPart2 = (universe: string[][]): Location[] => {
+    const [xs, ys]: [number[], number[]] = this.findExpansionPoints(universe);
+    return this.findAllGalaxyLocations(universe).map(
+      (location: Location) =>
+        new Location(
+          location.x + xs.filter((x: number) => x < location.x).length * 999999, // million - 1 since it is a replacement, not addition
+          location.y + ys.filter((y: number) => y < location.y).length * 999999
+        )
+    );
+  };
+
+  private findExpansionPoints = (
+    universe: string[][]
+  ): [number[], number[]] => [
+    universe.transpose().reduce(this.rowToExpansionPointsIndices, []),
+    universe.reduce(this.rowToExpansionPointsIndices, []),
+  ];
+
+  private rowToExpansionPointsIndices = (
+    acc: number[],
+    row: string[],
+    index: number
+  ) => (row.unique().length === 1 ? [...acc, index] : acc);
 
   private calculateSumOfShortestDistancesBetweenAllGalaxies = (
     galaxyCoordinates: Location[]
@@ -36,7 +65,7 @@ export class Day11 extends Solver {
       (row: string[], rowIndex: number) =>
         row
           .map((point: string, colIndex: number) =>
-            point === "#" ? new Location(colIndex, rowIndex) : null
+            point === '#' ? new Location(colIndex, rowIndex) : null
           )
           .filter((location: Location | null) => !!location) as Location[]
     );
