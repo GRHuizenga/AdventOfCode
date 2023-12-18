@@ -39,8 +39,61 @@ export class Day18 extends Solver {
   }
 
   solveForPartTwo(): Observable<string | number> {
-    return of(2);
+    return this.lines$().pipe(
+      scan(
+        (acc, curr: string) => {
+          const [_, __, hexCode] = curr.split(' ');
+          const lastVisited = acc.points.slice(-1)[0];
+          const direction = this.digitToDirection(+hexCode[7]);
+          const steps = this.hexToDecimal(hexCode.slice(2, 7));
+
+          return {
+            totalSteps: acc.totalSteps + +steps,
+            points: [
+              ...acc.points,
+              new Location(
+                lastVisited.x + this.deltaX(+steps, direction),
+                lastVisited.y + this.deltaY(+steps, direction)
+              ),
+            ],
+          };
+        },
+        {
+          totalSteps: 0,
+          points: [new Location(0, 0)],
+        }
+      ),
+      last(),
+      tap(console.log),
+      map(
+        ({ totalSteps, points }) =>
+          totalSteps +
+          Mathematics.prick(totalSteps, Mathematics.shoelace(points.slice(1)))
+      )
+    );
   }
+
+  private hexToDecimal = (hex: string): number => {
+    const map: Map<string, number> = new Map([
+      ['a', 10],
+      ['b', 11],
+      ['c', 12],
+      ['d', 13],
+      ['e', 14],
+      ['f', 15],
+    ]);
+    return hex
+      .split('')
+      .reverse()
+      .reduce(
+        (acc: number, char: string, index: number) =>
+          acc + (map.get(char) || +char) * Math.pow(16, index),
+        0
+      );
+  };
+
+  private digitToDirection = (digit: number): string =>
+    digit === 0 ? 'R' : digit === 1 ? 'D' : digit === 2 ? 'L' : 'U';
 
   private deltaX = (steps: number, direction: string): number =>
     direction === 'U' || direction === 'D'
