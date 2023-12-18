@@ -4,8 +4,10 @@ interface Array<T> {
   product(seed: T): T;
   diff(): T[];
   slidingWindow(windowSize: number): T[][];
+  pairs(): T[][];
   transpose(): T[];
   combinations(): T[][];
+  createRange(start: number, stop: number, step: number): number[];
 }
 
 Array.prototype.unique = function <T>(): T[] {
@@ -18,7 +20,7 @@ Array.prototype.sum = function (seed: number = 0): number {
   return this.reduce((acc: number, value: number) => acc + value, seed);
 };
 
-Array.prototype.sum = function (seed: string = ""): string {
+Array.prototype.sum = function (seed: string = ''): string {
   return this.reduce((acc: string, value: string) => acc + value, seed);
 };
 
@@ -46,6 +48,15 @@ Array.prototype.slidingWindow = function <T>(windowSize: number = 2): T[][] {
   );
 };
 
+Array.prototype.pairs = function <T>(): T[][] {
+  return Array.prototype
+    .createRange(0, this.length - 2, 2)
+    .reduce(
+      (acc: T[][], index: number) => [...acc, this.slice(index, index + 2)],
+      [] as T[][]
+    );
+};
+
 Array.prototype.transpose = function <T>(): T[][] {
   return this[0].map((_: T[], colIndex: number) =>
     this.map((row: T[]) => row[colIndex])
@@ -55,5 +66,18 @@ Array.prototype.transpose = function <T>(): T[][] {
 Array.prototype.combinations = function <T>(): T[][] {
   return this.flatMap((v1: T, index: number) =>
     this.slice(index + 1).map((v2: T) => [v1, v2])
+  );
+};
+
+Array.prototype.createRange = function (
+  start: number,
+  stop: number,
+  step: number
+): number[] {
+  return Array.from(
+    {
+      length: (stop - start) / step + 1,
+    },
+    (_, index) => start + index * step
   );
 };
