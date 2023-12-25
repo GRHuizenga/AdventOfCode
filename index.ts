@@ -9,6 +9,8 @@ import { Day08 } from './2023/day08';
 import { Day09 } from './2023/day09';
 import { Day10 } from './2023/day10';
 import { Day11 } from './2023/day11';
+import { Day14 } from './2023/day14';
+import { Day15 } from './2023/day15';
 import { Day18 } from './2023/day18';
 import './core/array-functions';
 import { Solver } from './core/solver';
@@ -27,8 +29,8 @@ const days: Solver[] = [
   new Day11(),
   new Day18(),
   new Day18(),
-  new Day18(),
-  new Day18(),
+  new Day14(),
+  new Day15(),
   new Day18(),
   new Day18(),
   new Day18(),
