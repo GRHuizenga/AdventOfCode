@@ -11,6 +11,7 @@ import { Day10 } from './2023/day10';
 import { Day11 } from './2023/day11';
 import { Day14 } from './2023/day14';
 import { Day15 } from './2023/day15';
+import { Day16 } from './2023/day16';
 import { Day18 } from './2023/day18';
 import './core/array-functions';
 import { Solver } from './core/solver';
@@ -31,7 +32,7 @@ const days: Solver[] = [
   new Day18(),
   new Day14(),
   new Day15(),
-  new Day18(),
+  new Day16(),
   new Day18(),
   new Day18(),
   // MORE DAYS HERE
