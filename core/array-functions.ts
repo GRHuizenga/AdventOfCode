@@ -3,6 +3,7 @@ interface Array<T> {
   sum(seed: T): T;
   product(seed: T): T;
   diff(): T[];
+  frequencyMap(): { [key: string | number]: number };
   slidingWindow(windowSize: number): T[][];
   pairs(): T[][];
   transpose(): T[];
@@ -35,6 +36,19 @@ Array.prototype.diff = function (): number[] {
       return [...acc, self[index + 1] - curr];
     },
     []
+  );
+};
+
+Array.prototype.frequencyMap = function (): { [key: string | number]: number } {
+  return this.reduce(
+    (
+      frequencyMap: { [key: string | number]: number },
+      value: string | number
+    ) => ({
+      ...frequencyMap,
+      [value]: (frequencyMap[value] || 0) + 1,
+    }),
+    {}
   );
 };
 

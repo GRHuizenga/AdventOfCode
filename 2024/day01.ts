@@ -24,13 +24,7 @@ export class Day01 extends Solver {
     );
   }
   solveForPartTwo(): Observable<string | number> | string | number {
-    const frequencyMap = this.right.reduce(
-      (map: { [key: number]: number }, value) => ({
-        ...map,
-        [value]: (map[value] || 0) + 1,
-      }),
-      {}
-    );
+    const frequencyMap = this.right.frequencyMap();
     return this.left.reduce(
       (similarityScore, value) =>
         similarityScore + value * (frequencyMap[value] || 0),
