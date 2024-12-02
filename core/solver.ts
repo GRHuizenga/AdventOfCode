@@ -21,6 +21,8 @@ export abstract class Solver {
       );
 
     this.lines = () =>
-      readFileSync(`./2024/inputs/day${day}.txt`).toString('utf8').split('\n');
+      readFileSync(`./2024/inputs/day${day}.txt`)
+        .toString('utf8')
+        .split('\r\n');
   }
 }

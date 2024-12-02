@@ -1,10 +1,12 @@
 import { forkJoin, Observable, of } from 'rxjs';
-import { Day01 } from './2024/day01';
-import './core/array-functions';
 import { Solver } from './core/solver';
+import './core/array-functions';
+import { Day01 } from './2024/day01';
+import { Day02 } from './2024/day02';
 
 const days: Solver[] = [
   new Day01(),
+  new Day02(),
   // MORE DAYS HERE
 ];
 
