@@ -3,10 +3,12 @@ import { Solver } from './core/solver';
 import './core/array-functions';
 import { Day01 } from './2024/day01';
 import { Day02 } from './2024/day02';
+import { Day03 } from './2024/day03';
 
 const days: Solver[] = [
   new Day01(),
   new Day02(),
+  new Day03(),
   // MORE DAYS HERE
 ];
 
