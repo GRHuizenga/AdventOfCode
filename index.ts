@@ -5,12 +5,14 @@ import { Day01 } from './2024/day01';
 import { Day02 } from './2024/day02';
 import { Day03 } from './2024/day03';
 import { Day04 } from './2024/day04';
+import { Day05 } from './2024/day05';
 
 const days: Solver[] = [
   new Day01(),
   new Day02(),
   new Day03(),
   new Day04(),
+  new Day05(),
   // MORE DAYS HERE
 ];
 
