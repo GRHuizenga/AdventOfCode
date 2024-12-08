@@ -6,6 +6,7 @@ import { Day02 } from './2024/day02';
 import { Day03 } from './2024/day03';
 import { Day04 } from './2024/day04';
 import { Day05 } from './2024/day05';
+import { Day06 } from './2024/day06';
 
 const days: Solver[] = [
   new Day01(),
@@ -13,6 +14,7 @@ const days: Solver[] = [
   new Day03(),
   new Day04(),
   new Day05(),
+  new Day06(),
   // MORE DAYS HERE
 ];
 
